@@ -1,0 +1,29 @@
+{
+  "name": "magyar-szavak-api",
+  "version": "1.0.0",
+  "description": "API for Magyar Szavak project.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "watch": "nodemon --exec npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mlbors/magyar-szavak.git"
+  },
+  "author": "mlbors",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mlbors/magyar-szavak/issues"
+  },
+  "homepage": "https://github.com/mlbors/magyar-szavak#readme",
+  "dependencies": {
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "node-fetch": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
