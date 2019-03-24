@@ -2,11 +2,18 @@
   "name": "magyar-szavak-api",
   "version": "1.0.0",
   "description": "API for Magyar Szavak project.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node ./index.js",
+    "start": "node ./bin/www",
     "watch": "nodemon --exec npm start",
     "test": "./node_modules/karma/bin/karma start"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "test/*",
+      "docs/*"
+    ],
+    "delay": "2500"
   },
   "repository": {
     "type": "git",
@@ -19,9 +26,14 @@
   },
   "homepage": "https://github.com/mlbors/magyar-szavak#readme",
   "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
-    "node-fetch": "^2.3.0"
+    "http-errors": "~1.6.2",
+    "node-fetch": "^2.3.0",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.0"
   },
   "devDependencies": {
     "jasmine-core": "^3.3.0",
