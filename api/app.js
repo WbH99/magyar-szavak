@@ -1,11 +1,32 @@
+/**
+ * Magyar Szavak - API
+ * app.js
+ * 
+ * @author mlbors
+ * @version 1.0.0.0
+ * @since 2019.03.27
+ */
+
+/*******************/
+/***** IMPORTS *****/
+/*******************/
+
 var createError = require('http-errors');
 var express = require('express');
+var graphqlHTTP = require('express-graphql')
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
+/************************************************************/
+/************************************************************/
+
+/******************/
+/***** SET UP *****/
+/******************/
 
 var app = express();
 
@@ -19,8 +40,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/************************************************************/
+/************************************************************/
+
+/******************/
+/***** ROUTES *****/
+/******************/
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  rootValue: root,
+  graphiql: true,
+}));
+
+/************************************************************/
+/************************************************************/
+
+/******************/
+/***** ERRORS *****/
+/******************/
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -37,5 +78,12 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+/************************************************************/
+/************************************************************/
+
+/*******************/
+/***** EXPORTS *****/
+/*******************/
 
 module.exports = app;
