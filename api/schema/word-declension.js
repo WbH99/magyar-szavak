@@ -35,9 +35,15 @@ const WordDeclension = new GraphQLObjectType({
   name: 'WordDeclension',
   description: 'Word declension',
   fields: () => ({
-    id: GraphQLString,
-    kind: GraphQLString,
-    value: GraphQLString
+    id: {
+      type: GraphQLString
+    },
+    kind: {
+      type: GraphQLString
+    },
+    value: {
+      type: GraphQLString
+    },
   })
 })
 
