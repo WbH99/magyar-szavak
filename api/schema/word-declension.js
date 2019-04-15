@@ -1,6 +1,6 @@
 /**
  * Magyar Szavak - API
- * word-type.js
+ * word-declension.js
  * 
  * @author mlbors
  * @version 1.0.0.0
@@ -24,8 +24,6 @@ const {
     GraphQLList
 } = require('graphql')
 
-const WordDefinition = require('./word-definition')
-
 /************************************************************/
 /************************************************************/
 
@@ -33,14 +31,19 @@ const WordDefinition = require('./word-definition')
 /***** TYPE *****/
 /****************/
 
-const WordType = new GraphQLObjectType({
-  name: 'WordType',
-  description: 'Word type',
+const WordDeclension = new GraphQLObjectType({
+  name: 'WordDeclension',
+  description: 'Word declension',
   fields: () => ({
-    id: GraphQLString,
-    definitions: {
-      type: new GraphQLList(WordDefinition)
-    }
+    id: {
+      type: GraphQLString
+    },
+    kind: {
+      type: GraphQLString
+    },
+    value: {
+      type: GraphQLString
+    },
   })
 })
 
@@ -51,4 +54,4 @@ const WordType = new GraphQLObjectType({
 /***** EXPORTS *****/
 /*******************/
 
-module.exports = WordType
+module.exports = WordDeclension

@@ -1,6 +1,6 @@
 /**
  * Magyar Szavak - API
- * word-type.js
+ * word-conjugation.js
  * 
  * @author mlbors
  * @version 1.0.0.0
@@ -24,7 +24,7 @@ const {
     GraphQLList
 } = require('graphql')
 
-const WordDefinition = require('./word-definition')
+const WordConjugationVariant = require('./word-conjugation-variant')
 
 /************************************************************/
 /************************************************************/
@@ -33,13 +33,18 @@ const WordDefinition = require('./word-definition')
 /***** TYPE *****/
 /****************/
 
-const WordType = new GraphQLObjectType({
-  name: 'WordType',
-  description: 'Word type',
+const WordConjugation = new GraphQLObjectType({
+  name: 'WordConjugation',
+  description: 'Word conjugation',
   fields: () => ({
-    id: GraphQLString,
-    definitions: {
-      type: new GraphQLList(WordDefinition)
+    id: {
+      type: GraphQLString
+    },
+    tense: {
+      type: GraphQLString
+    },
+    value: {
+      type: new GraphQLList(WordConjugationVariant)
     }
   })
 })
@@ -51,4 +56,4 @@ const WordType = new GraphQLObjectType({
 /***** EXPORTS *****/
 /*******************/
 
-module.exports = WordType
+module.exports = WordConjugation

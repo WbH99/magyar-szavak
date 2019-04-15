@@ -1,6 +1,6 @@
 /**
  * Magyar Szavak - API
- * word-type.js
+ * word-definition.js
  * 
  * @author mlbors
  * @version 1.0.0.0
@@ -24,7 +24,8 @@ const {
     GraphQLList
 } = require('graphql')
 
-const WordDefinition = require('./word-definition')
+const WordDeclension = require('./word-declension')
+const WordConjugation = require('./word-conjugation')
 
 /************************************************************/
 /************************************************************/
@@ -33,13 +34,36 @@ const WordDefinition = require('./word-definition')
 /***** TYPE *****/
 /****************/
 
-const WordType = new GraphQLObjectType({
-  name: 'WordType',
-  description: 'Word type',
+const WordDefinition = new GraphQLObjectType({
+  name: 'WordDefinition',
+  description: 'Word definition',
   fields: () => ({
-    id: GraphQLString,
-    definitions: {
-      type: new GraphQLList(WordDefinition)
+    id: {
+      type: GraphQLString
+    },
+    kind: {
+      type: GraphQLString
+    },
+    gender: {
+      type: GraphQLString
+    },
+    plural: {
+      type: GraphQLString
+    },
+    opposite: {
+      type: GraphQLString
+    },
+    synonym: {
+      type: new GraphQLList(GraphQLString)
+    },
+    antonym: {
+      type: new GraphQLList(GraphQLString)
+    },
+    declension: {
+      type: new GraphQLList(WordDeclension)
+    },
+    conjugation: {
+      type: new GraphQLList(WordConjugation)
     }
   })
 })
@@ -51,4 +75,4 @@ const WordType = new GraphQLObjectType({
 /***** EXPORTS *****/
 /*******************/
 
-module.exports = WordType
+module.exports = WordDefinition
