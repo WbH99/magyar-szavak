@@ -1,6 +1,6 @@
 /**
  * Magyar Szavak - API
- * index.js
+ * search.js
  * 
  * @author mlbors
  * @version 1.0.0.0
@@ -22,7 +22,18 @@ const router = express.Router()
 /*****************/
 
 router.get('/', function(req, res, next) {
-  res.send('index')
+  res.send('search')
+})
+
+/************************************************************/
+/************************************************************/
+
+/****************/
+/***** WORD *****/
+/****************/
+
+router.get('/:word', function(req, res, next) {
+  res.send(`search for ${req.params.word}`)
 })
 
 /************************************************************/
