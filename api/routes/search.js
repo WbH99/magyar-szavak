@@ -14,6 +14,10 @@
 const express = require('express')
 const router = express.Router()
 
+const graphql = require('graphql');
+
+const schema = require('../schema/schema.js')
+
 /************************************************************/
 /************************************************************/
 
@@ -33,7 +37,18 @@ router.get('/', function(req, res, next) {
 /****************/
 
 router.get('/:word', function(req, res, next) {
-  res.send(`search for ${req.params.word}`)
+
+  const query = `{ 
+                    word(id: "${req.params.word}") { 
+                      definitions { 
+                        id 
+                      } 
+                    } 
+                  }`
+  
+  graphql.graphql(schema, query).then(result => {
+    res.json(result);
+  });
 })
 
 /************************************************************/

@@ -43,7 +43,8 @@ const schema = new GraphQLSchema({
         type: WordType,
         args: {
           id: { type: GraphQLString }
-        }
+        },
+        resolve: () => 'foo'
       }
     })
   })
