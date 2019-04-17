@@ -17,6 +17,7 @@ const router = express.Router()
 const graphql = require('graphql');
 
 const schema = require('../schema/schema.js')
+const fragments = require('../schema/fragments.js')
 
 /************************************************************/
 /************************************************************/
@@ -40,9 +41,7 @@ router.get('/:word', function(req, res, next) {
 
   const query = `{ 
                     word(id: "${req.params.word}") { 
-                      definitions { 
-                        id 
-                      } 
+                      ...${fragments.WordFragment} 
                     } 
                   }`
   
