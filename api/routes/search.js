@@ -41,10 +41,10 @@ router.get('/:word', function(req, res, next) {
 
   const query = `{ 
                     word(id: "${req.params.word}") { 
-                      ...${fragments.WordFragment} 
+                      ${fragments.WordFragment}
                     } 
                   }`
-  
+                  
   graphql.graphql(schema, query).then(result => {
     res.json(result);
   });

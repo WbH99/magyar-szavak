@@ -7,14 +7,28 @@
  * @since 2019.03.27
  */
 
+/*******************/
+/***** IMPORTS *****/
+/*******************/
+
+const {
+  GraphQL,
+  GraphQLSchema,
+  GraphQLObjectType,
+  GraphQLInt,
+  GraphQLString,
+  GraphQLList
+} = require('graphql')
+
+/************************************************************/
+/************************************************************/
+
 /****************/
 /***** WORD *****/
 /****************/
 
-const WordFragment = `fragement CompleteWord on Word {
-                        definitions { 
-                          id 
-                        } 
+const WordFragment = `definitions { 
+                        id 
                       }`
 
 /************************************************************/
