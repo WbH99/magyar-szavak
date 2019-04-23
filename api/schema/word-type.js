@@ -37,7 +37,6 @@ const WordType = new GraphQLObjectType({
   name: 'WordType',
   description: 'Word type',
   fields: () => ({
-    id: GraphQLString,
     definitions: {
       type: new GraphQLList(WordDefinition)
     }

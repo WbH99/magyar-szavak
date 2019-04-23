@@ -1,6 +1,6 @@
 /**
  * Magyar Szavak - API
- * index.js
+ * search.js
  * 
  * @author mlbors
  * @version 1.0.0.0
@@ -14,6 +14,11 @@
 const express = require('express')
 const router = express.Router()
 
+const graphql = require('graphql');
+
+const schema = require('../schema/schema.js')
+const fragments = require('../schema/fragments.js')
+
 /************************************************************/
 /************************************************************/
 
@@ -22,7 +27,27 @@ const router = express.Router()
 /*****************/
 
 router.get('/', function(req, res, next) {
-  res.send('index')
+  res.send('search')
+})
+
+/************************************************************/
+/************************************************************/
+
+/****************/
+/***** WORD *****/
+/****************/
+
+router.get('/:word', function(req, res, next) {
+
+  const query = `{ 
+                    word(id: "${req.params.word}") { 
+                      ${fragments.WordFragment}
+                    } 
+                  }`
+                  
+  graphql.graphql(schema, query).then(result => {
+    res.json(result);
+  });
 })
 
 /************************************************************/

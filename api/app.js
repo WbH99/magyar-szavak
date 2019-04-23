@@ -19,7 +19,7 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 
 const indexRouter = require('./routes/index')
-const usersRouter = require('./routes/users')
+const searchRouter = require('./routes/search')
 
 const schema = require('./schema/schema')
 
@@ -50,7 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 /******************/
 
 app.use('/', indexRouter)
-app.use('/users', usersRouter)
+app.use('/search', searchRouter)
 
 app.use('/graphql', graphqlHTTP({
   schema: schema,
