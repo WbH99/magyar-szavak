@@ -23,12 +23,59 @@ const {
 /************************************************************/
 /************************************************************/
 
+/************************************/
+/***** WORD CONJUGATION VARIANT *****/
+/************************************/
+
+const WordConjugationVariantFragment = `value { 
+                                          id,
+                                          kind,
+                                          value
+                                        }`
+
+/************************************************************/
+/************************************************************/
+
+/****************************/
+/***** WORD CONJUGATION *****/
+/****************************/
+
+const WordConjugationFragment = `conjugation { 
+                                    id,
+                                    tense,
+                                    ${WordConjugationVariantFragment}
+                                  }`
+
+/************************************************************/
+/************************************************************/
+
+/***************************/
+/***** WORD DECLENSION *****/
+/***************************/
+
+const WordDeclensionFragment = `declension { 
+                                  id,
+                                  kind,
+                                  value,
+                                }`
+
+/************************************************************/
+/************************************************************/
+
 /****************/
 /***** WORD *****/
 /****************/
 
 const WordFragment = `definitions { 
-                        id 
+                        id,
+                        kind,
+                        gender,
+                        plural,
+                        opposite,
+                        synonym,
+                        antonym,
+                        ${WordDeclensionFragment},
+                        ${WordConjugationFragment}
                       }`
 
 /************************************************************/
@@ -39,5 +86,8 @@ const WordFragment = `definitions {
 /*******************/
 
 module.exports = {
-  WordFragment: WordFragment
+  WordFragment: WordFragment,
+  WordDeclensionFragment: WordDeclensionFragment,
+  WordConjugationFragment: WordConjugationFragment,
+  WordConjugationVariantFragment: WordConjugationVariantFragment
 }
