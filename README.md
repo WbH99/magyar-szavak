@@ -12,8 +12,11 @@ In progress.
 
 ## Done ##
 
-None.
+* Project initialized
+* Basic routes
 
 ## To-Do ##
 
-Everything.
+* Unit tests
+* API
+* Front End

@@ -37,7 +37,7 @@ router.get('/', function(req, res, next) {
 /***** WORD *****/
 /****************/
 
-router.get('/:word', function(req, res, next) {
+router.get('/:word', (req, res, next) => {
 
   const query = `{ 
                     word(id: "${req.params.word}") { 
@@ -46,8 +46,8 @@ router.get('/:word', function(req, res, next) {
                   }`
                   
   graphql.graphql(schema, query).then(result => {
-    res.json(result);
-  });
+    res.json(result)
+  })
 })
 
 /************************************************************/

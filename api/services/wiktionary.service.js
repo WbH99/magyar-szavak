@@ -44,15 +44,16 @@ const wiktionaryService = module.exports = {
 
   getData: (word) => {
     return new Promise((resolve, reject) => {
-      const url = `${baseUrl}?action=parse&format=json&prop=text|revid|displaytitle&callback=?&page=${word}`
+      const url = `${baseUrl}?action=parse&format=json&page=${word}`
 
       try {
         request(url, (error, response, body) => {
           const data = JSON.parse(body)
-        
-          if (error || response.statusCode != 200) {
+
+          if (error || response.statusCode !== 200 || (typeof data.error !== 'undefined' && data.error !== null)) {
             reject({
-              error: (typeof data.error.errors.message !== 'undefined' && data.error.errors.message !== '' && data.error.errors.message !== null) ? data.error.errors.message : 'Error with Wiktionary',
+              data: null,
+              error: (typeof data.error.info !== 'undefined' && data.error.info !== '' && data.error.info !== null) ? data.error.info : 'Error with Wiktionary',
               status: response.statusCode,
               response: response
             })
@@ -69,8 +70,10 @@ const wiktionaryService = module.exports = {
             return
           }
 
+          console.log(data.parse.title)
+
           resolve({
-            data: data.items,
+            data: data.parse.title,
             error: null,
             status: response.statusCode,
             response: response
@@ -79,8 +82,8 @@ const wiktionaryService = module.exports = {
         })
       }
       catch(error) {
-        console.error(error);
         reject({
+          data: null,
           error: 'Error with Wiktionary',
           status: 500,
           response: null
