@@ -26,6 +26,7 @@ const {
 } = require('graphql')
 
 const WordType = require('./word-type')
+const WiktionaryService = require('../services/wiktionary.service')
 
 /************************************************************/
 /************************************************************/
@@ -44,7 +45,10 @@ const schema = new GraphQLSchema({
         args: {
           id: { type: GraphQLString }
         },
-        resolve: () => 'foo'
+        resolve: (root, args) => fetch(
+          WiktionaryService.getData(args.id)
+        )
+        .then(res => res.json())
       }
     })
   })

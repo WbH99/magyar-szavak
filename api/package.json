@@ -35,7 +35,8 @@
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
     "morgan": "~1.9.0",
-    "node-fetch": "^2.3.0"
+    "node-fetch": "^2.3.0",
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "jasmine-core": "^3.3.0",
