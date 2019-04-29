@@ -44,11 +44,46 @@ router.get('/:word', (req, res, next) => {
                       ${fragments.WordFragment}
                     } 
                   }`
-                  
-  graphql.graphql(schema, query).then(result => {
+
+  console.log('::: entering route :::')
+
+  const graphqlQuery = () => {
+    return new Promise((resolve, reject) => {
+      console.log('::: calling graphqlQuery :::')
+      graphql.graphql(schema, query).then(response => {
+        console.log('::: data:::')
+        console.log(response)
+        resolve(response)
+        return
+      })
+      .catch(e => {
+        reject ({ 
+          data: null, 
+          error: `Error with main query - ${e}`, 
+          status: 500, 
+          response: null 
+        })
+        return
+      })
+    })
+  }
+
+  graphqlQuery().then((result) => {
+    console.log("::: returning :::")
     res.json(result)
+    return
+  })
+  .catch(e => {
+    res.json({ 
+      data: null, 
+      error: `Error with main query - ${e}`, 
+      status: 500, 
+      response: null 
+    })
+    return
   })
 })
+              
 
 /************************************************************/
 /************************************************************/

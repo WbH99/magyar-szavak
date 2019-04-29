@@ -46,10 +46,19 @@ const schema = new GraphQLSchema({
           id: { type: GraphQLString }
         },
         resolve: (root, args) => {
-          WiktionaryService.getData(args.id)
-          .then(res => res.data)
-          .catch(e => {
-            console.error(e.error)
+          return new Promise((resolve, reject) => {
+            WiktionaryService.getData(args.id)
+            .then(res => {
+              console.log('::: schema :::')
+              console.log(res.data)
+              resolve(res.data)
+              return
+            })
+            .catch(e => {
+              console.error(e.error)
+              reject(e)
+              return
+            })
           })
         }
       }
