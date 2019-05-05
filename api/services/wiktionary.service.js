@@ -76,7 +76,10 @@ const wiktionaryService = module.exports = {
           console.log(data.parse.title)
 
           resolve({
-            data: { id: data.parse.title },
+            data: { 
+              id: data.parse.title,
+              definition: 'foo definition'
+            },
             error: null,
             status: response.statusCode,
             response: response

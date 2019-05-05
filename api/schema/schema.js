@@ -46,13 +46,18 @@ const schema = new GraphQLSchema({
           id: { type: GraphQLString }
         },
         resolve: (root, args) => {
+          aggregatedData = { id: null, definitions: [] }
           return new Promise((resolve, reject) => {
             WiktionaryService.getData(args.id)
             .then(res => {
               console.log('::: schema :::')
               console.log(res.data)
-              resolve(res.data)
-              return
+              aggregatedData.id = res.data.id
+              aggregatedData.definitions.push(res.data.definition)
+              return aggregatedData
+            })
+            .then((aggregatedData) => {
+              resolve(aggregatedData)
             })
             .catch(e => {
               console.error(e.error)
