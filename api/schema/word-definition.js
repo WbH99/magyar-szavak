@@ -39,10 +39,12 @@ const WordDefinition = new GraphQLObjectType({
   description: 'Word definition',
   fields: () => ({
     id: {
-      type: GraphQLString
+      type: GraphQLString,
+      resolve: (parents, args) => parents.id
     },
     kind: {
-      type: GraphQLString
+      type: GraphQLString,
+      resolve: (parents, args) => parents.kind
     },
     gender: {
       type: GraphQLString
