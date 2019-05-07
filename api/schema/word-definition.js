@@ -47,19 +47,24 @@ const WordDefinition = new GraphQLObjectType({
       resolve: (parents, args) => parents.kind
     },
     gender: {
-      type: GraphQLString
+      type: GraphQLString,
+      resolve: (parents, args) => parents.type
     },
     plural: {
-      type: GraphQLString
+      type: GraphQLString,
+      resolve: (parents, args) => parents.plural
     },
     opposite: {
-      type: GraphQLString
+      type: GraphQLString,
+      resolve: (parents, args) => parents.opposite
     },
     synonym: {
-      type: new GraphQLList(GraphQLString)
+      type: new GraphQLList(GraphQLString),
+      resolve: (parents, args) => parents.synonym
     },
     antonym: {
-      type: new GraphQLList(GraphQLString)
+      type: new GraphQLList(GraphQLString),
+      resolve: (parents, args) => parents.antonym
     },
     declension: {
       type: new GraphQLList(WordDeclension)

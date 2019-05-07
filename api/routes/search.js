@@ -45,6 +45,8 @@ router.get('/:word', (req, res, next) => {
                     } 
                   }`
 
+  console.log(query)
+
   console.log('::: entering route :::')
 
   const graphqlQuery = () => {

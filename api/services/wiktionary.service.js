@@ -15,6 +15,8 @@ const request = require('request')
 
 require('dotenv').config()
 
+const wordFactory = require('../factories/word-factory')
+
 /************************************************************/
 /************************************************************/
 
@@ -75,14 +77,14 @@ const wiktionaryService = module.exports = {
           console.log('::: Wiktionary Service :::')
           console.log(data.parse.title)
 
+          const word = wordFactory.createWord()
+          word.id = data.parse.title
+          word.definition.id = `wiktionary-${data.parse.title}`
+          word.definition.kind = 'foo'
+          word.definition.synonym = ['foo1', 'foo2']
+
           resolve({
-            data: { 
-              id: data.parse.title,
-              definition: {
-                id: 'foo',
-                kind: 'foo definition'
-              }
-            },
+            data: word,
             error: null,
             status: response.statusCode,
             response: response

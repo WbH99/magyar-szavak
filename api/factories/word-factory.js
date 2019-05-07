@@ -19,7 +19,26 @@
 /***********************/
 
 const WordObject = {
-  id: null
+  id: null,
+  definition: {
+    id: null,
+    kind: null,
+    gender: null,
+    plural: null,
+    opposite: null,
+    synonym: null,
+    antonym: null,
+    declension: [{
+      id: null,
+      kind: null,
+      value: null
+    }],
+    conjugation: [{
+      id: null,
+      tense: null,
+      value: null
+    }]
+  }
 }
 
 /************************************************************/
