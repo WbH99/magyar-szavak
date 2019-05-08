@@ -67,10 +67,12 @@ const WordDefinition = new GraphQLObjectType({
       resolve: (parents, args) => parents.antonym
     },
     declension: {
-      type: new GraphQLList(WordDeclension)
+      type: new GraphQLList(WordDeclension),
+      resolve: (parents, args) => parents.declension
     },
     conjugation: {
-      type: new GraphQLList(WordConjugation)
+      type: new GraphQLList(WordConjugation),
+      resolve: (parents, args) => parents.conjugation
     }
   })
 })

@@ -38,10 +38,12 @@ const WordConjugation = new GraphQLObjectType({
   description: 'Word conjugation',
   fields: () => ({
     id: {
-      type: GraphQLString
+      type: GraphQLString,
+      resolve: (parents, args) => parents.id
     },
     tense: {
-      type: GraphQLString
+      type: GraphQLString,
+      resolve: (parents, args) => parents.tense
     },
     value: {
       type: new GraphQLList(WordConjugationVariant)

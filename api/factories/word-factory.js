@@ -36,7 +36,11 @@ const WordObject = {
     conjugation: [{
       id: null,
       tense: null,
-      value: null
+      value: [{
+        id: null,
+        kind: null,
+        value: null
+      }]
     }]
   }
 }

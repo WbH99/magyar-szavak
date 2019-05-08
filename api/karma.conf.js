@@ -20,6 +20,9 @@ module.exports = function(config) {
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('karma-coverage'),
+      require('karma-webpack'),
+      require('karma-sourcemap-loader'),
+      require('babel-loader')
     ],
 
 
@@ -37,10 +40,36 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      '**/src/*.js': 'coverage',
-      '**/services/*.js': 'coverage'
+      '**/src/*.js': ['coverage'],
+      '**/services/*.js': ['coverage'],
+      '**/factories/*.js': ['coverage'],
+      '**/test/*.js': ['webpack', 'sourcemap'],
     },
 
+    webpack: {
+      devtool: 'inline-source-map',
+      module: {
+        rules: [
+          {
+            test: /\.js$/,
+            exclude: /(node_modules|bower_components)/,
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: ['@babel/preset-env']
+              }
+            }
+          }
+        ]
+      }
+    },
+
+    webpackMiddleware: {
+			noInfo: true,
+			stats: {
+				chunks: false
+			}
+		},
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
