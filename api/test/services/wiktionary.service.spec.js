@@ -11,6 +11,8 @@
 /***** IMPORTS *****/
 /*******************/
 
+const fs = require('fs')
+
 require('dotenv').config()
 
 const wiktionaryService = require('../../services/wiktionary.service')

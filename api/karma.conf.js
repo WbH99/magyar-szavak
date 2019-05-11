@@ -40,19 +40,21 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      '**/src/*.js': ['coverage'],
-      '**/services/*.js': ['coverage'],
-      '**/factories/*.js': ['coverage'],
-      '**/test/*.js': ['webpack', 'sourcemap'],
+      'src/**/*.js': ['webpack','coverage'],
+      'services/**/*.js': ['webpack','coverage'],
+      'factories/**/*.js': ['webpack','coverage'],
+      'test/**/*.js': ['webpack', 'sourcemap'],
     },
 
     webpack: {
-      devtool: 'inline-source-map',
+      mode: 'development',
+      target: 'node',
+      devtool: 'source-map',
       module: {
         rules: [
           {
             test: /\.js$/,
-            exclude: /(node_modules|bower_components)/,
+            exclude: /node_modules/,
             use: {
               loader: 'babel-loader',
               options: {
