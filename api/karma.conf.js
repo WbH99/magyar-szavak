@@ -1,6 +1,8 @@
 // Karma configuration
 // Generated on Sun Mar 24 2019 11:29:30 GMT+0100 (GMT+01:00)
 
+const nodeExternals = require('webpack-node-externals')
+
 module.exports = function(config) {
   config.set({
 
@@ -20,6 +22,7 @@ module.exports = function(config) {
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('karma-coverage'),
+      require('karma-requirejs'),
       require('karma-webpack'),
       require('karma-sourcemap-loader'),
       require('babel-loader')
@@ -28,7 +31,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test/**/*spec.js'
+      'node_modules/requirejs/require.js',
+      'node_modules/karma-requirejs/lib/adapter.js', 
+      { pattern: './factories/**/*.js', watched: true },
+      { pattern: './services/**/*.js', watched: true },
+      { pattern: './test/**/*spec.js', watched: true }
     ],
 
 
@@ -37,13 +44,18 @@ module.exports = function(config) {
     ],
 
 
+    client:{
+      clearContext: false // leave Jasmine Spec Runner output visible in browser
+    },
+
+
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/**/*.js': ['webpack','coverage'],
-      'services/**/*.js': ['webpack','coverage'],
-      'factories/**/*.js': ['webpack','coverage'],
-      'test/**/*.js': ['webpack', 'sourcemap'],
+      './factories/**/*.js': ['webpack','coverage'],
+      './services/**/*.js': ['webpack','coverage'],
+      './src/**/*.js': ['webpack','coverage'],
+      './test/**/*.js': ['webpack', 'sourcemap'],
     },
 
     webpack: {

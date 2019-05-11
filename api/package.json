@@ -50,9 +50,12 @@
     "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
+    "karma-requirejs": "^1.1.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^3.0.5",
     "nodemon": "^1.18.10",
-    "webpack": "^4.30.0"
+    "requirejs": "^2.3.6",
+    "webpack": "^4.30.0",
+    "webpack-node-externals": "^1.7.2"
   }
 }
