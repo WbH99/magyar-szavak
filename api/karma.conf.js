@@ -12,13 +12,14 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'requirejs'],
 
     //plugins
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-firefox-launcher'),
+      require('karma-phantomjs-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('karma-coverage'),
@@ -33,14 +34,15 @@ module.exports = function(config) {
     files: [
       'node_modules/requirejs/require.js',
       'node_modules/karma-requirejs/lib/adapter.js', 
-      { pattern: './factories/**/*.js', watched: true },
-      { pattern: './services/**/*.js', watched: true },
-      { pattern: './test/**/*spec.js', watched: true }
+      { pattern: './factories/**/*.js', watched: true, included: false },
+      { pattern: './services/**/*.js', watched: true, included: false },
+      { pattern: './test/**/*.js', watched: true, included: false }
     ],
 
 
     // list of files / patterns to exclude
     exclude: [
+      'app.js'
     ],
 
 
@@ -117,7 +119,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'Firefox'],
+    browsers: ['Chrome', 'Firefox', 'PhantomJS'],
 
 
     // Continuous Integration mode
