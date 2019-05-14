@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "watch": "nodemon --exec npm start",
-    "test": "./node_modules/karma/bin/karma start"
+    "test": "jasmine",
+    "browser-test": "./node_modules/karma/bin/karma start"
   },
   "nodemonConfig": {
     "ignore": [
@@ -42,6 +43,7 @@
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "babel-loader": "^8.0.5",
+    "jasmine": "^3.4.0",
     "jasmine-core": "^3.3.0",
     "karma": "^4.0.1",
     "karma-chrome-launcher": "^2.2.0",

@@ -29,7 +29,7 @@ const wiktionaryService = require('../../services/wiktionary.service')
  * @var object mockData parsed json data coming from wiktionary
  */
 
-const rawData = fs.readFileSync('../data/wiktionary/fa.json')
+const rawData = fs.readFileSync(`${__dirname}/../data/wiktionary/fa.json`)
 const mockData = JSON.parse(rawData) 
 
 /************************************************************/
@@ -68,7 +68,7 @@ describe('Test Wiktionary Service', function() {
   /***********************/
 
   it('Wiktionary Serice should not be null', function() {
-    expect(wiktionaryService).isNot(null)
+    expect(wiktionaryService).not.toBe(null)
   })
 })
       

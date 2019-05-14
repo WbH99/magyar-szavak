@@ -36,7 +36,7 @@ module.exports = function(config) {
       'node_modules/karma-requirejs/lib/adapter.js', 
       { pattern: './factories/**/*.js', watched: true, included: false },
       { pattern: './services/**/*.js', watched: true, included: false },
-      { pattern: './test/**/*.js', watched: true, included: false }
+      { pattern: './spec/**/*spec.js', watched: true, included: false }
     ],
 
 
@@ -57,7 +57,7 @@ module.exports = function(config) {
       './factories/**/*.js': ['webpack','coverage'],
       './services/**/*.js': ['webpack','coverage'],
       './src/**/*.js': ['webpack','coverage'],
-      './test/**/*.js': ['webpack', 'sourcemap'],
+      './spec/**/*spec.js': ['webpack', 'sourcemap'],
     },
 
     webpack: {
