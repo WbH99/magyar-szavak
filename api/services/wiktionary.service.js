@@ -15,7 +15,7 @@ const request = require('request')
 
 require('dotenv').config()
 
-const wordFactory = require('../factories/word-factory')
+const wordFactory = require('../factories/word.factory')
 
 /************************************************************/
 /************************************************************/

@@ -1,6 +1,6 @@
 /**
  * Magyar Szavak - API
- * word-factory.js
+ * word.factory.js
  * 
  * @author mlbors
  * @version 1.0.0.0

@@ -32,10 +32,6 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'node_modules/requirejs/require.js',
-      'node_modules/karma-requirejs/lib/adapter.js', 
-      { pattern: './factories/**/*.js', watched: true, included: false },
-      { pattern: './services/**/*.js', watched: true, included: false },
       { pattern: './spec/**/*spec.js', watched: true, included: false }
     ],
 
@@ -81,10 +77,7 @@ module.exports = function(config) {
     },
 
     webpackMiddleware: {
-			noInfo: true,
-			stats: {
-				chunks: false
-			}
+			noInfo: true
 		},
 
     // test results reporter to use
