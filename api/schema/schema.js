@@ -26,6 +26,7 @@ const {
 } = require('graphql')
 
 const WordType = require('./word-type')
+const WiktionaryService = require('../services/wiktionary.service')
 
 /************************************************************/
 /************************************************************/
@@ -44,7 +45,27 @@ const schema = new GraphQLSchema({
         args: {
           id: { type: GraphQLString }
         },
-        resolve: () => 'foo'
+        resolve: (root, args) => {
+          aggregatedData = { id: null, definitions: [] }
+          return new Promise((resolve, reject) => {
+            WiktionaryService.getData(args.id)
+            .then(res => {
+              console.log('::: schema :::')
+              console.log(res.data)
+              aggregatedData.id = res.data.id
+              aggregatedData.definitions.push(res.data.definition)
+              return aggregatedData
+            })
+            .then((aggregatedData) => {
+              resolve(aggregatedData)
+            })
+            .catch(e => {
+              console.error(e.error)
+              reject(e)
+              return
+            })
+          })
+        }
       }
     })
   })

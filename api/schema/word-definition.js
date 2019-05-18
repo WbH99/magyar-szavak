@@ -39,31 +39,40 @@ const WordDefinition = new GraphQLObjectType({
   description: 'Word definition',
   fields: () => ({
     id: {
-      type: GraphQLString
+      type: GraphQLString,
+      resolve: (parents, args) => parents.id
     },
     kind: {
-      type: GraphQLString
+      type: GraphQLString,
+      resolve: (parents, args) => parents.kind
     },
     gender: {
-      type: GraphQLString
+      type: GraphQLString,
+      resolve: (parents, args) => parents.type
     },
     plural: {
-      type: GraphQLString
+      type: GraphQLString,
+      resolve: (parents, args) => parents.plural
     },
     opposite: {
-      type: GraphQLString
+      type: GraphQLString,
+      resolve: (parents, args) => parents.opposite
     },
     synonym: {
-      type: new GraphQLList(GraphQLString)
+      type: new GraphQLList(GraphQLString),
+      resolve: (parents, args) => parents.synonym
     },
     antonym: {
-      type: new GraphQLList(GraphQLString)
+      type: new GraphQLList(GraphQLString),
+      resolve: (parents, args) => parents.antonym
     },
     declension: {
-      type: new GraphQLList(WordDeclension)
+      type: new GraphQLList(WordDeclension),
+      resolve: (parents, args) => parents.declension
     },
     conjugation: {
-      type: new GraphQLList(WordConjugation)
+      type: new GraphQLList(WordConjugation),
+      resolve: (parents, args) => parents.conjugation
     }
   })
 })

@@ -66,7 +66,8 @@ const WordDeclensionFragment = `declension {
 /***** WORD *****/
 /****************/
 
-const WordFragment = `definitions { 
+const WordFragment = `id,
+                      definitions { 
                         id,
                         kind,
                         gender,
