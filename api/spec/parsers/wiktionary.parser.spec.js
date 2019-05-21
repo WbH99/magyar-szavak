@@ -31,13 +31,13 @@ const wiktionaryParser = require('../../parsers/wiktionary.parser')
 /***** TEST SUITE *****/
 /**********************/
 
-describe('Test Wiktionary Parser', function() {
+describe('Test Wiktionary Parser', () => {
 
   /***********************/
   /***** BEFORE EACH *****/
   /***********************/
 
-  beforeEach(function() {
+  beforeEach(() => {
 
   })
 
@@ -48,7 +48,7 @@ describe('Test Wiktionary Parser', function() {
   /***** AFTER EACH *****/
   /**********************/
 
-  afterEach(function() {
+  afterEach(() => {
 
   })
 
@@ -59,8 +59,50 @@ describe('Test Wiktionary Parser', function() {
   /***** TEST OBJECT *****/
   /***********************/
 
-  it('Wiktionary Parser should not be null', function() {
+  it('Wiktionary Parser should not be null', () => {
     expect(wiktionaryParser).not.toBe(null)
+  })
+
+  /************************************************************/
+  /************************************************************/
+    
+  /********************************************************/
+  /***** TEST PARSE HTML CONTENT WITH UNDEFINED INPUT *****/
+  /********************************************************/
+
+  it('Wiktionary Parser should return null if input is undefined', (done) => {
+    wiktionaryParser.parseHTMLContent(undefined).then(result => {
+      expect(result).toBe(null)
+      done()
+    })
+  })
+
+  /************************************************************/
+  /************************************************************/
+    
+  /***************************************************/
+  /***** TEST PARSE HTML CONTENT WITH NULL INPUT *****/
+  /***************************************************/
+
+  it('Wiktionary Parser should return null if input is null', (done) => {
+    wiktionaryParser.parseHTMLContent(null).then(result => {
+      expect(result).toBe(null)
+      done()
+    })
+  })
+
+  /************************************************************/
+  /************************************************************/
+    
+  /****************************************************/
+  /***** TEST PARSE HTML CONTENT WITH EMPTY INPUT *****/
+  /****************************************************/
+
+  it('Wiktionary Parser should return null if input is empty', (done) => {
+    wiktionaryParser.parseHTMLContent('').then(result => {
+      expect(result).toBe(null)
+      done()
+    })
   })
 
 })

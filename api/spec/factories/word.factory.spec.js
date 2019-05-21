@@ -31,13 +31,13 @@ const wordFactory = require('../../factories/word.factory')
 /***** TEST SUITE *****/
 /**********************/
 
-describe('Test Word Factory', function() {
+describe('Test Word Factory', () => {
 
   /***********************/
   /***** BEFORE EACH *****/
   /***********************/
 
-  beforeEach(function() {
+  beforeEach(() => {
 
   })
 
@@ -48,7 +48,7 @@ describe('Test Word Factory', function() {
   /***** AFTER EACH *****/
   /**********************/
 
-  afterEach(function() {
+  afterEach(() => {
 
   })
 
@@ -59,7 +59,7 @@ describe('Test Word Factory', function() {
   /***** TEST OBJECT *****/
   /***********************/
 
-  it('Word Factory should not be null', function() {
+  it('Word Factory should not be null', () => {
     expect(wordFactory).not.toBe(null)
   })
 
@@ -70,7 +70,7 @@ describe('Test Word Factory', function() {
   /***** TEST OBJECT CREATION *****/
   /********************************/
 
-  it('Word Factory should create an object', function() {
+  it('Word Factory should create an object', () => {
     expect(wordFactory.createWord()).not.toBe(null)
   })
 

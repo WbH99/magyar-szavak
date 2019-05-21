@@ -36,17 +36,23 @@ const wiktionaryParser = module.exports = {
    * @return Promise
    */
 
-  getData: (content) => {
+  parseHTMLContent: (content) => {
     return new Promise((resolve, reject) => {
       
       try {
+
+        if (typeof content === 'undefined' || content === null || content === '') {
+          resolve(null)
+          return
+        }
+
         resolve()
         return
       }
       catch(e) {
         reject({
           data: null,
-          error: `Error in Wiktionary Paser - getData - ${e}`,
+          error: `Error in Wiktionary Paser - parseHTMLContent - ${e}`,
           status: 500,
           response: null
         })
