@@ -15,6 +15,8 @@ const request = require('request')
 
 require('dotenv').config()
 
+const wordFactory = require('../factories/word.factory')
+
 /************************************************************/
 /************************************************************/
 
@@ -46,7 +48,9 @@ const wiktionaryParser = module.exports = {
           return
         }
 
-        resolve()
+        const word = wordFactory.createWord()
+
+        resolve(word)
         return
       }
       catch(e) {
