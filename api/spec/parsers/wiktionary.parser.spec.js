@@ -129,12 +129,68 @@ describe('Test Wiktionary Parser', () => {
   /************************************************************/
   /************************************************************/
     
+  /*****************************************************/
+  /***** TEST PARSE HTML CONTENT ONLY WITH KEYWORD *****/
+  /*****************************************************/
+
+  it('Wiktionary Parser should return null if only keyword is present', (done) => {
+    wiktionaryParser.parseHTMLContent('#Hungarian').then(result => {
+      expect(result).toBe(null)
+      done()
+    })
+  })
+
+  /************************************************************/
+  /************************************************************/
+    
+  /*****************************************************/
+  /***** TEST PARSE HTML CONTENT ONLY WITH SECTION *****/
+  /*****************************************************/
+
+  it('Wiktionary Parser should return null if only section is present', (done) => {
+    wiktionaryParser.parseHTMLContent('id="Hungarian"').then(result => {
+      expect(result).toBe(null)
+      done()
+    })
+  })
+
+  /************************************************************/
+  /************************************************************/
+    
+  /***********************************************************************/
+  /***** TEST PARSE HTML CONTENT WITHOUT KEYWORD AND WITHOUT SECTION *****/
+  /************************************************************************/
+
+  it('Wiktionary Parser should return null if keyword and section are missing', (done) => {
+    wiktionaryParser.parseHTMLContent('#Fooid="foo').then(result => {
+      expect(result).toBe(null)
+      done()
+    })
+  })
+
+  /************************************************************/
+  /************************************************************/
+    
+  /********************************************************************/
+  /***** TEST PARSE HTML CONTENT WITH KEYWORD BUT WITHOUT SECTION *****/
+  /********************************************************************/
+
+  it('Wiktionary Parser should return null if keyword is present and section is missing', (done) => {
+    wiktionaryParser.parseHTMLContent('#Hungarianfooid="foo"').then(result => {
+      expect(result).toBe(null)
+      done()
+    })
+  })
+
+  /************************************************************/
+  /************************************************************/
+    
   /**************************************************/
   /***** TEST PARSE HTML CONTENT RESOLVED VALUE *****/
   /**************************************************/
 
   it('Wiktionary Parser returned Promise should resolve an object', (done) => {
-    wiktionaryParser.parseHTMLContent('foo').then(result => {
+    wiktionaryParser.parseHTMLContent(mockData.parse.text['*']).then(result => {
       expect(typeof(result)).toBe('object')
       done()
     })

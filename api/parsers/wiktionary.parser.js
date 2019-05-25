@@ -48,6 +48,13 @@ const wiktionaryParser = module.exports = {
           return
         }
 
+        if (!content.includes('#Hungarian') || !content.includes('id="Hungarian"')) {
+          resolve(null)
+          return
+        }
+
+        console.log(content)
+
         const word = wordFactory.createWord()
 
         resolve(word)
