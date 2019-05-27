@@ -54,7 +54,7 @@ const wiktionaryParser = module.exports = {
         }
 
         console.log(content)
-
+        
         const word = wordFactory.createWord()
 
         resolve(word)
