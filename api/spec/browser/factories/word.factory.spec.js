@@ -1,6 +1,6 @@
 /**
  * Magyar Szavak - API
- * wiktionary.service.spec.js
+ * word.factory.spec.js
  * 
  * @author mlbors
  * @version 1.0.0.0
@@ -15,7 +15,7 @@ const fs = require('fs')
 
 require('dotenv').config()
 
-const wiktionaryService = require('../../services/wiktionary.service')
+const wordFactory = require('../../../factories/word.factory')
 
 /************************************************************/
 /************************************************************/
@@ -24,14 +24,6 @@ const wiktionaryService = require('../../services/wiktionary.service')
 /***** ATTIBUTES *****/
 /*********************/
 
-/**
- * @var json rawData json raw data coming from wiktionary
- * @var object mockData parsed json data coming from wiktionary
- */
-
-const rawData = fs.readFileSync(`${__dirname}/../data/wiktionary/fa.json`)
-const mockData = JSON.parse(rawData) 
-
 /************************************************************/
 /************************************************************/
 
@@ -39,13 +31,13 @@ const mockData = JSON.parse(rawData)
 /***** TEST SUITE *****/
 /**********************/
 
-describe('Test Wiktionary Service', function() {
+describe('Test Word Factory', () => {
 
   /***********************/
   /***** BEFORE EACH *****/
   /***********************/
 
-  beforeEach(function() {
+  beforeEach(() => {
 
   })
 
@@ -56,7 +48,7 @@ describe('Test Wiktionary Service', function() {
   /***** AFTER EACH *****/
   /**********************/
 
-  afterEach(function() {
+  afterEach(() => {
 
   })
 
@@ -67,9 +59,10 @@ describe('Test Wiktionary Service', function() {
   /***** TEST OBJECT *****/
   /***********************/
 
-  it('Wiktionary Serice should not be null', function() {
-    expect(wiktionaryService).not.toBe(null)
+  it('Word Factory should not be null', () => {
+    expect(wordFactory).not.toBe(null)
   })
+
 })
       
   

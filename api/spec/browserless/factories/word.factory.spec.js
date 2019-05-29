@@ -15,7 +15,7 @@ const fs = require('fs')
 
 require('dotenv').config()
 
-const wordFactory = require('../../factories/word.factory')
+const wordFactory = require('../../../factories/word.factory')
 
 /************************************************************/
 /************************************************************/

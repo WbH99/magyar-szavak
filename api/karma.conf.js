@@ -1,8 +1,6 @@
 // Karma configuration
 // Generated on Sun Mar 24 2019 11:29:30 GMT+0100 (GMT+01:00)
 
-const nodeExternals = require('webpack-node-externals')
-
 module.exports = function(config) {
   config.set({
 
@@ -12,7 +10,7 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine', 'requirejs'],
+    frameworks: ['jasmine'],
 
     //plugins
     plugins: [
@@ -23,7 +21,6 @@ module.exports = function(config) {
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('karma-coverage'),
-      require('karma-requirejs'),
       require('karma-webpack'),
       require('karma-sourcemap-loader'),
       require('babel-loader')
@@ -32,7 +29,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      { pattern: './spec/**/*spec.js', watched: true, included: false }
+      { pattern: './spec/browser/**/*spec.js', watched: true, included: true }
     ],
 
 
@@ -53,13 +50,18 @@ module.exports = function(config) {
       './factories/**/*.js': ['webpack','coverage'],
       './services/**/*.js': ['webpack','coverage'],
       './src/**/*.js': ['webpack','coverage'],
-      './spec/**/*spec.js': ['webpack', 'sourcemap'],
+      './spec/browser/**/*spec.js': ['webpack', 'sourcemap'],
     },
 
     webpack: {
       mode: 'development',
-      target: 'node',
+      target: 'web',
       devtool: 'source-map',
+      node: {
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty'
+      },
       module: {
         rules: [
           {

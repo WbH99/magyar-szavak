@@ -12,6 +12,7 @@
 /*******************/
 
 const request = require('request')
+const htmlParser = require('node-html-parser')
 
 require('dotenv').config()
 
@@ -53,7 +54,8 @@ const wiktionaryParser = module.exports = {
           return
         }
 
-        console.log(content)
+        const htmlContent = htmlParser.parse(content)
+        console.log(htmlContent)
         
         const word = wordFactory.createWord()
 

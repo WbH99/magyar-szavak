@@ -15,7 +15,7 @@ const fs = require('fs')
 
 require('dotenv').config()
 
-const wiktionaryParser = require('../../parsers/wiktionary.parser')
+const wiktionaryParser = require('../../../parsers/wiktionary.parser')
 
 /************************************************************/
 /************************************************************/
@@ -29,7 +29,7 @@ const wiktionaryParser = require('../../parsers/wiktionary.parser')
  * @var object mockData parsed json data coming from wiktionary
  */
 
-const rawData = fs.readFileSync(`${__dirname}/../data/wiktionary/fa.json`)
+const rawData = fs.readFileSync(`${__dirname}/../../data/wiktionary/fa.json`)
 const mockData = JSON.parse(rawData) 
 
 /************************************************************/
