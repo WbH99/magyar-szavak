@@ -55,8 +55,26 @@ const wiktionaryParser = module.exports = {
         }
 
         const htmlContent = htmlParser.parse(content)
-        console.log(htmlContent)
+        const mainContent = htmlContent.querySelector('.mw-parser-output')
         
+        mainContent.childNodes.forEach((node, n) => {
+
+          if (node.tagName === 'h2') {
+            node.childNodes.forEach((childNode, c) => {
+
+              if (childNode.tageName === 'span' && childeNode.id === 'Hungarian') {
+                console.log(childNode)
+              }
+
+            })
+            
+          }
+          
+        })
+
+        const section = htmlContent.querySelectorAll('#Hungarian')
+        
+
         const word = wordFactory.createWord()
 
         resolve(word)
