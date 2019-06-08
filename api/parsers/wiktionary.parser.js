@@ -44,6 +44,10 @@ const wiktionaryParser = module.exports = {
       
       try {
 
+        let nodeFound = false
+        let parsingDone = false
+        const foundElements = []
+
         if (typeof content === 'undefined' || content === null || content === '') {
           resolve(null)
           return
@@ -60,21 +64,20 @@ const wiktionaryParser = module.exports = {
         mainContent.childNodes.forEach((node, n) => {
 
           if (node.tagName === 'h2') {
-            node.childNodes.forEach((childNode, c) => {
 
-              if (childNode.tageName === 'span' && childeNode.id === 'Hungarian') {
-                console.log(childNode)
+            _checkIfItIsRightSection(node).then(result => {
+              if (!result) {
+                return
               }
 
+              foundElements.push(node)
             })
-            
           }
           
         })
 
-        const section = htmlContent.querySelectorAll('#Hungarian')
+        console.log(foundElements)
         
-
         const word = wordFactory.createWord()
 
         resolve(word)
@@ -83,12 +86,59 @@ const wiktionaryParser = module.exports = {
       catch(e) {
         reject({
           data: null,
-          error: `Error in Wiktionary Paser - parseHTMLContent - ${e}`,
+          error: `Error in Wiktionary Paser - parseHTMLContent - ${e.message}`,
           status: 500,
           response: null
         })
+        console.error(e.message)
         return
       }
     })
   }
 }
+
+/************************************************************/
+/************************************************************/
+
+/****************************************/
+/***** CHECK IF IT IS RIGHT SECTION *****/
+/****************************************/
+
+/**
+ * @param HTMLNode node node to check
+ * @return Promise
+ */
+
+const _checkIfItIsRightSection = (node) => {
+  return new Promise((resolve, reject) => {
+    try {
+      let nodeFound = false
+      const promises = []
+      
+      node.childNodes.forEach((childNode, c) => {
+        const promise = new Promise ((resolve) => {
+          if (typeof childNode.id !== 'undefined' 
+              && childNode.id === 'Hungarian' 
+              && childNode.tagName === 'span'
+              && childNode.parentNode.tagName === 'h2'
+              && !nodeFound) {
+            nodeFound = true
+          }
+          resolve(nodeFound)
+        })
+        promises.push(promise)
+      })
+ 
+      Promise.all(promises).then(results => {
+        console.log(nodeFound)
+        resolve(nodeFound)
+      }) 
+    }
+    catch(e) {
+      console.error(e.message)
+      reject(false)
+      return
+    }
+  })
+}
+
