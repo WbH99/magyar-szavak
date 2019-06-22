@@ -46,7 +46,7 @@ const wiktionaryParser = module.exports = {
 
         let nodeFound = false
         let parsingDone = false
-        const foundElements = []
+        let foundElements = []
 
         if (typeof content === 'undefined' || content === null || content === '') {
           resolve(null)
@@ -61,41 +61,109 @@ const wiktionaryParser = module.exports = {
         const htmlContent = htmlParser.parse(content)
         const mainContent = htmlContent.querySelector('.mw-parser-output')
         
-        mainContent.childNodes.forEach((node, n) => {
-
-          if (node.tagName === 'h2') {
-
-            _checkIfItIsRightSection(node).then(result => {
-              if (!result) {
-                return
-              }
-
-              foundElements.push(node)
-            })
-          }
-          
+        _getSection(mainContent.childNodes).then(result => {
+          foundElements = result
+          console.log(foundElements)
+          const word = wordFactory.createWord()
+          resolve(word)
+          return
         })
-
-        console.log(foundElements)
-        
-        const word = wordFactory.createWord()
-
-        resolve(word)
-        return
+        .catch(e => {
+          console.error(e.message)
+          reject({
+            data: null,
+            error: `Error in Wiktionary Paser - parseHTMLContent - ${e.message}`,
+            status: 500,
+            response: null
+          })
+          return
+        })
       }
       catch(e) {
+        console.error(e.message)
         reject({
           data: null,
           error: `Error in Wiktionary Paser - parseHTMLContent - ${e.message}`,
           status: 500,
           response: null
         })
-        console.error(e.message)
         return
       }
     })
   }
 }
+
+/************************************************************/
+/************************************************************/
+
+/***********************/
+/***** GET SECTION *****/
+/***********************/
+
+/**
+ * @param HTMLNode nodes nodes to parse
+ * @return Promise
+ */
+
+const _getSection = (nodes) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const promises = []
+
+      nodes.forEach((node, n) => {
+        const promise = _checkNode(node)
+        promises.push(promise)
+      })
+
+      Promise.all(promises).then(results => {
+        _parseReturnedElements(results).then(elements => {
+          resolve(elements)
+          return
+        })
+        .catch(e => {
+          console.error(e.message)
+          reject([])
+          return
+        }) 
+      }) 
+
+    }
+    catch(e) {
+      console.error(e.message)
+      reject([])
+      return
+    }
+  })
+}
+
+/************************************************************/
+/************************************************************/
+
+/**********************/
+/***** CHECK NODE *****/
+/**********************/
+
+/**
+ * @param HTMLNode node node to check
+ * @return Promise
+ */
+
+const _checkNode = (node) => {
+  return new Promise((resolve, reject) => {
+    if (node.tagName !== 'h2') {
+      resolve({ value: false, node: node })
+    }
+    _checkIfItIsRightSection(node).then(result => {
+      if (!result) {
+        resolve({ value: false, node: node })
+      }
+      resolve({ value: true, node: node })
+    })
+    .catch(e => {
+      reject({ value: false, node: null })
+    })
+  })
+} 
 
 /************************************************************/
 /************************************************************/
@@ -112,26 +180,16 @@ const wiktionaryParser = module.exports = {
 const _checkIfItIsRightSection = (node) => {
   return new Promise((resolve, reject) => {
     try {
-      let nodeFound = false
       const promises = []
       
       node.childNodes.forEach((childNode, c) => {
-        const promise = new Promise ((resolve) => {
-          if (typeof childNode.id !== 'undefined' 
-              && childNode.id === 'Hungarian' 
-              && childNode.tagName === 'span'
-              && childNode.parentNode.tagName === 'h2'
-              && !nodeFound) {
-            nodeFound = true
-          }
-          resolve(nodeFound)
-        })
+        const promise = _checkIfItIsRightNode(childNode)
         promises.push(promise)
       })
  
       Promise.all(promises).then(results => {
-        console.log(nodeFound)
-        resolve(nodeFound)
+        resolve(results.includes(true))
+        return
       }) 
     }
     catch(e) {
@@ -142,3 +200,88 @@ const _checkIfItIsRightSection = (node) => {
   })
 }
 
+/************************************************************/
+/************************************************************/
+
+/*************************************/
+/***** CHECK IF IT IS RIGHT NODE *****/
+/*************************************/
+
+/**
+ * @param HTMLNode node node to check
+ * @return Promise
+ */
+
+const _checkIfItIsRightNode = (node) => {
+  return new Promise ((resolve, reject) => {
+    try {
+      if (typeof node.id !== 'undefined' 
+          && node.id === 'Hungarian' 
+          && node.tagName === 'span'
+          && node.parentNode.tagName === 'h2') {
+        resolve(true)
+        return
+      }
+      resolve(false)
+      return
+    }
+    catch(e) {
+      console.error(e)
+      reject(false)
+      return
+    }
+  })
+}
+
+/************************************************************/
+/************************************************************/
+
+/***********************************/
+/***** PARSE RETURNED ELEMENTS *****/
+/***********************************/
+
+/**
+ * @param Array elements returned elements
+ * @return Promise
+ */
+
+const _parseReturnedElements = (elements) => {
+  return new Promise ((resolve, reject) => {
+    const results = []
+    let sectionOpen = false
+    
+    try {
+      elements.forEach((element, e) => {
+        if (element.node == null) {
+          return
+        }
+
+        if (element.value) {
+          sectionOpen = true
+          results.push(element.node)
+        }
+
+        if (!element.value 
+          && sectionOpen 
+          && element.node.tagName !== 'h2') {
+            results.push(element.node)
+            return
+        }
+
+        if (!element.value 
+          && sectionOpen 
+          && element.node.tagName === 'h2') {
+            sectionOpen = false
+            return
+        }
+      })
+
+      resolve(results)  
+    }
+    catch(e) {
+      console.error(e.message)
+      reject([])
+      return
+    }
+  })
+}
